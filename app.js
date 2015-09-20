@@ -1,6 +1,11 @@
+
 'use strict';
 
 var timer;
+
+// Create timer object, initialized to 4:00 with startPause     //
+// function to decrement timer, display current time, and       //
+// award the game.                                              //
 
 function Timer() {
     var self = this;
@@ -16,8 +21,12 @@ function Timer() {
     }
 }
 
+// Instantiate two new Timers                                   //
+
 var timer1 = new Timer();
 var timer2 = new Timer();
+
+// Decrement mins and seconds of selected timer                 //
 
 function countDown(clock) {
     if (clock.seconds <= 0){
@@ -27,6 +36,8 @@ function countDown(clock) {
     clock.seconds--;
 }
 
+// Manipulate DOM elements to display correct time              //
+
 function writeTime(id, clock) {
     if (clock.seconds >= 10) {
         document.getElementById(id).innerHTML = clock.mins + ":" + clock.seconds;
@@ -34,6 +45,9 @@ function writeTime(id, clock) {
         document.getElementById(id).innerHTML = clock.mins + ":" + "0" + clock.seconds;
     }
 }
+
+// When a timer reaches zero, stop the timer, reset the clocks, //
+// and award game to opposing player.                           //
 
 function awardGame() {
     if(timer1.mins == 0 && timer1.seconds == 0) {
@@ -48,6 +62,11 @@ function awardGame() {
         return;
     }
 }
+
+// Reset timers by clearing the timer interval,           //
+// reinitializing the timers mins and seconds properties       //
+// to 4 and 0, rspectively, and reset HTML to display a 4:00   //
+// clock.                                                      //
 
 function reset() {
     clearInterval(timer);
