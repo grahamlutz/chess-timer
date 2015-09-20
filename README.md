@@ -27,7 +27,3 @@ You are apart of a brand new startup that specializes in chess!  You’ve been a
 * There should be one index.html file for us to load.
 
 Please provide us a README with your assumptions or other notes that you would like us to know.  Your code will be reviewed in modern Chrome, Firefox and Safari browsers.
-
-## Submission Requirements
-
-A link to a hosted git repository or tarball of the git repository of the finished project. Please email the link or tarball to sethen.maleno@insightpool.com
