@@ -1,0 +1,123 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Vanilla Javascript Chess Timer">
+	<meta name="author" content="Graham Lutz">
+	<title>Chess Timer</title>
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<style type="text/css">
+
+	.header, .clock, .reset {
+		margin: 20px 0 20px 0;
+	}
+
+	</style>
+	<script type="text/javascript">
+
+	'use strict';
+
+	var timer;
+
+	// Create timer object, initialized to 4:00 with startPause     //
+	// function to decrement timer, display current time, and       //
+	// award the game.                                              //
+
+	function Timer() {
+	    var self = this;
+	    this.mins = 4;
+	    this.seconds = 0,
+	    this.startPause = function(id) {
+	        clearInterval(timer);
+	        timer = setInterval(function() {
+	            countDown(self);
+	            writeTime(id, self);
+	            awardGame();
+	        }, 1000);
+	    }
+	}
+
+	// Instantiate two new Timers                                   //
+
+	var timer1 = new Timer();
+	var timer2 = new Timer();
+
+	// Decrement mins and seconds of selected timer                 //
+
+	function countDown(clock) {
+	    if (clock.seconds <= 0){
+	        clock.mins--;
+	        clock.seconds = 60;
+	    }
+	    clock.seconds--;
+	}
+
+	// Manipulate DOM elements to display correct time              //
+
+	function writeTime(id, clock) {
+	    if (clock.seconds >= 10) {
+	        document.getElementById(id).innerHTML = clock.mins + ":" + clock.seconds;
+	    } else {
+	        document.getElementById(id).innerHTML = clock.mins + ":" + "0" + clock.seconds;
+	    }
+	}
+
+	// When a timer reaches zero, stop the timer, reset the clocks, //
+	// and award game to opposing player.							//
+
+	function awardGame() {
+	    if(timer1.mins == 0 && timer1.seconds == 0) {
+	        clearInterval(timer);
+	        reset();
+	        alert("Player 2 Wins!");
+	    } else if (timer2.mins == 0 && timer2.seconds == 0) {
+	        clearInterval(timer);
+	        reset();
+	        alert("Player 1 Wins!");
+	    } else {
+	        return;
+	    }
+	}
+
+	// Reset timers by clearing the startPause interval,           //
+	// reinitializing the timers mins and seconds properties       //
+	// to 4 and 0, rspectively, and reset HTML to display a 4:00   //
+	// clock. 													   //
+
+	function reset() {
+	    clearInterval(timer);
+	    timer1.mins = 4;
+	    timer1.seconds = 0;
+	    timer2.mins = 4;
+	    timer2.seconds = 0;
+	    document.getElementById('time1').innerHTML = "4:00";
+	    document.getElementById('time2').innerHTML = "4:00";
+	}
+
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="header">
+				<h1>Chess Timer</h1>
+				<p>Click your clock to end your turn</p>
+			</div>
+		</div>
+		<div class="row clocks">
+			<div class="clock">
+				<button class="" onclick="timer1.startPause('time2')">Player 1 - <span id="time1">4:00</span></button>
+			</div>
+			<div class="clock">
+				<button class="" onclick="timer2.startPause('time1')">Player 2 - <span id="time2">4:00</span></button>
+			</div>
+		</div>
+		<div class="row reset">
+			<div class="">
+				<button onclick="reset()">Reset</button>
+			</div>
+		</div>
+	</div>
+	<!--<script type="text/javascript" src="app.js"></script> -->
+</body>
+</html>
